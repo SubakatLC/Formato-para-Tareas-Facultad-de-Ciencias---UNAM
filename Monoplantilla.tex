@@ -1,0 +1,557 @@
+\documentclass[11pt,letterpaper]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAQUETES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ==============================================================================
+% CONFIGURACIÓN BÁSICA DEL DOCUMENTO
+% ==============================================================================
+\usepackage[utf8]{inputenc}                % Codificación UTF-8 para caracteres especiales
+\usepackage[spanish]{babel}                % Localización en español (hyphenation, textos)
+\usepackage{graphicx}                      % Manejo avanzado de imágenes [\includegraphics]
+\usepackage{float}                         % Posicionamiento preciso de figuras/tablas [H]
+\usepackage{bookmark}                      % Bookmarks interactivos en PDF (mejorado)
+\usepackage[makeroom]{cancel}              % Cancelación de términos en ecuaciones [\cancel]
+
+% ==============================================================================
+% CONFIGURACIÓN DE HIPERVÍNCULOS Y REFERENCIAS
+% ==============================================================================
+\usepackage{hyperref}                      % Hipervínculos interactivos
+\usepackage{nameref}                       % Referencias por nombre de sección
+\usepackage{theoremref}                    % Referencias a teoremas mejoradas
+\hypersetup{
+    pdftitle={Assignment},                 % Metadatos del PDF
+    colorlinks=true,                       % Enlaces en color (no recuadros)
+    linkcolor=cyan!90,                     % Color enlaces internos
+    urlcolor=blue,                         % Color URLs externas
+    bookmarksnumbered=true,                % Numeración automática de bookmarks
+    bookmarksopen=true                     % Bookmarks expandidos por defecto
+}
+
+% ==============================================================================
+% PAQUETES MATEMÁTICOS Y SÍMBOLOS
+% ==============================================================================
+\usepackage{amsmath, amsfonts, amsthm, amssymb, mathtools} % Base para matemáticas
+\usepackage{xfrac}                         % Fracciones diagonales [\sfrac]
+\usepackage{tikz-cd}                       % Diagramas conmutativos
+\usepackage{tikzsymbols}                   % Símbolos especiales (emojis, misc.)
+\usepackage{siunitx}                       % Alineación numérica en tablas [S]
+\usepackage{multicol}                      % Columnas múltiples en texto/matemáticas
+
+% ==============================================================================
+% FORMATO DE TABLAS Y ALGORITMOS
+% ==============================================================================
+\usepackage{booktabs}                      % Reglas profesionales para tablas [\toprule]
+\usepackage{array}                         % Control avanzado de columnas en tablas
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e} % Escritura de algoritmos
+
+% ==============================================================================
+% LISTADOS DE CÓDIGO
+% ==============================================================================
+\usepackage{listings}                      % Inclusión de código fuente
+\lstset{
+    language=C,                            % Lenguaje base para resaltado
+    basicstyle=\scriptsize\ttfamily,       % Estilo compacto tipo terminal
+    numbers=left,                          % Numeración de línea izquierda
+    numberstyle=\scriptsize\color{gray},   % Estilo numérico discreto
+    frame=single,                          % Marco alrededor del código
+    rulecolor=\color{black},               % Color del marco
+    tabsize=2,                             % Tamaño de tabulaciones
+    breaklines=true,                       % Ajuste automático de líneas
+    keywordstyle=\color{blue},             % Palabras clave en azul
+    commentstyle=\color{dkgreen},          % Comentarios en verde oscuro
+    stringstyle=\color{mauve},             % Cadenas de texto en morado
+    xleftmargin=4.0ex,                     % Sangría izquierda
+    morekeywords={for,each,between,can,reach,in,is,Sort,Print,From} % Keywords adicionales
+}
+
+% ==============================================================================
+% ELEMENTOS GRÁFICOS Y DE DISEÑO
+% ==============================================================================
+\usepackage[most,many,breakable]{tcolorbox} % Cajas decoradas con estilo
+\usepackage{xcolor}                         % Gestión avanzada de colores
+\usepackage{varwidth}                       % Cajas de ancho variable
+\usepackage{enumitem}                       % Personalización de listas [nosep]
+
+% ==============================================================================
+% HERRAMIENTAS AVANZADAS Y MISCELÁNEOS
+% ==============================================================================
+\usepackage{etoolbox}                      % Utilidades para programación LaTeX
+\usepackage{import}                        % Importación modular de archivos
+\usepackage{xifthen}                       % Condicionales en documentos
+\usepackage{pdfpages}                     % Inclusión de páginas PDF externas
+\usepackage{transparent}                  % Manejo de transparencias
+\usepackage[fixlanguage]{babelbib}        % Bibliografía en español
+\bibliographystyle{babunsrt}             % Estilo de bibliografía
+\usepackage{titlesec}                     % Personalización de títulos
+\usepackage{comment}  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLORES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{myg}{RGB}{56, 140, 70}
+\definecolor{myb}{RGB}{45, 111, 177}
+\definecolor{myr}{RGB}{199, 68, 64}
+\definecolor{mytheorembg}{HTML}{F2F2F9}
+\definecolor{mytheoremfr}{HTML}{00007B}
+\definecolor{mylenmabg}{HTML}{FFFAF8}
+\definecolor{mylenmafr}{HTML}{983b0f}
+\definecolor{mypropbg}{HTML}{f2fbfc}
+\definecolor{mypropfr}{HTML}{191971}
+\definecolor{myexamplebg}{HTML}{F2FBF8}
+\definecolor{myexamplefr}{HTML}{88D6D1}
+\definecolor{myexampleti}{HTML}{2A7F7F}
+\definecolor{mydefinitbg}{HTML}{E5E5FF}
+\definecolor{mydefinitfr}{HTML}{3F3FA3}
+\definecolor{notesgreen}{RGB}{0,162,0}
+\definecolor{myp}{RGB}{197, 92, 212}
+\definecolor{mygr}{HTML}{2C3338}
+\definecolor{myred}{RGB}{127,0,0}
+\definecolor{myyellow}{RGB}{169,121,69}
+\definecolor{myexercisebg}{HTML}{F2FBF8}
+\definecolor{myexercisefg}{HTML}{88D6D1}
+\definecolor{mauve}{rgb}{0.58,0,0.82}  % Color morado
+\definecolor{azulpuma}{RGB}{0,61,121} % Color azul puma
+\definecolor{doradopuma}{RGB}{213,159,15} % Color dorado puma
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAJAS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ==============================================================================
+% ENTORNOS PERSONALIZADOS PARA CAJAS DECORADAS
+% ==============================================================================
+
+% --------------------------
+% Caja de Introducción/Indicaciones
+% --------------------------
+\newtcolorbox{intro}[1][]{%
+    enhanced,                               % Habilitar mejoras gráficas
+    before skip=2mm, after skip=2mm,        % Espaciado vertical
+    colback=gray!5,                         % Color de fondo claro
+    colframe=black!80!black,                % Borde oscuro
+    boxrule=0.5mm,                          % Grosor del borde
+    attach boxed title to top left={         % Posición del título
+        xshift=1cm,                         % Desplazamiento horizontal
+        yshift*=1mm-\tcboxedtitleheight      % Ajuste vertical preciso
+    },
+    varwidth boxed title*=-3cm,             % Ancho adaptable del título
+    boxed title style={                     % Estilo personalizado del título
+        frame code={                        % Diseño del marco del título
+            \path[fill=tcbcolback]
+            ([yshift=-1mm,xshift=-1mm]frame.north west)
+            arc[start angle=0,end angle=180,radius=1mm]
+            ([yshift=-1mm,xshift=1mm]frame.north east)
+            arc[start angle=180,end angle=0,radius=1mm];
+            \path[left color=tcbcolback!60!black,
+                  right color=tcbcolback!60!black,
+                  middle color=tcbcolback!80!black]
+            ([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+            [rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+            -- (frame.south east) -- (frame.south west)
+            -- ([xshift=-1mm,yshift=-1mm]frame.north west)
+            [sharp corners]-- cycle;
+        }, 
+        interior engine=empty,              % Sin relleno adicional
+    },
+    fonttitle=\bfseries,                    % Título en negrita
+    title={Indicaciones},                   % Texto predeterminado del título
+    #1                                      % Permite personalización adicional
+}
+
+% --------------------------
+% Caja de Bibliografía (similar a intro con título diferente)
+% --------------------------
+\newtcolorbox{biblio}[1][]{enhanced,
+    before skip=2mm, after skip=2mm, colback=gray!5, colframe=black!80!black, boxrule=0.5mm,
+    attach boxed title to top left={xshift=1cm, yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
+    boxed title style={frame code={
+            \path[fill=tcbcolback]
+            ([yshift=-1mm,xshift=-1mm]frame.north west)
+            arc[start angle=0,end angle=180,radius=1mm]
+            ([yshift=-1mm,xshift=1mm]frame.north east)
+            arc[start angle=180,end angle=0,radius=1mm];
+            \path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
+                middle color=tcbcolback!80!black]
+            ([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+            [rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+            -- (frame.south east) -- (frame.south west)
+            -- ([xshift=-1mm,yshift=-1mm]frame.north west)
+            [sharp corners]-- cycle;
+        }, interior engine=empty,
+    },
+    fonttitle=\bfseries,
+    title={Bibliografía}, #1
+}
+
+% ==============================================================================
+% ENTORNOS TEOREMA-LIKE CON DISEÑO MEJORADO
+% ==============================================================================
+\makeatletter
+\newtcbtheorem{inciso}{Inciso}{             % Entorno tipo teorema
+    enhanced,                               % Efectos visuales mejorados
+    breakable,                              % Permite división entre páginas
+    colback=white,                          % Fondo blanco
+    colframe=mygr,                          % Color del marco (personalizable)
+    attach boxed title to top left={         % Posición del título
+        yshift*=-\tcboxedtitleheight
+    },
+    fonttitle=\bfseries,                    % Estilo de fuente del título
+    title={#2},                             % Parámetro para título dinámico
+    boxed title size=title,                 % Tamaño adaptado al contenido
+    boxed title style={                     % Estilo del marco del título
+        sharp corners,                      % Esquinas rectas
+        rounded corners=northwest,          % Esquina noroeste redondeada
+        colback=tcbcolframe,                % Color de fondo del título
+        boxrule=0pt,                        % Sin borde adicional
+    },
+    underlay boxed title={                  % Efecto decorativo bajo el título
+        \path[fill=tcbcolframe] (title.south west)--(title.south east)
+        to[out=0, in=180] ([xshift=5mm]title.east)--
+        (title.center-|frame.east)
+        [rounded corners=\kvtcb@arc] |-
+        (frame.north) -| cycle;
+    },
+    #1                                      % Parámetros adicionales
+}{def}                                     % Etiqueta para referencias
+\makeatother
+
+% ==============================================================================
+% CAJA DE NOTAS
+% ==============================================================================
+\usetikzlibrary{arrows,calc,shadows.blur}   % Requisitos para efectos gráficos
+\tcbuselibrary{skins}                       % Habilita skins avanzados
+
+\newtcolorbox{notas}[1][]{%
+    enhanced jigsaw,                        % Skin mejorado para efectos
+    colback=gray!20!white,                  % Fondo gris claro
+    colframe=gray!80!black,                 % Borde gris oscuro
+    size=small,                             % Tamaño compacto
+    boxrule=1pt,                            % Grosor del borde
+    title=\textbf{Notas | Observaciones},   % Título doble
+    halign title=flush center,              % Alineación central del título
+    coltitle=black,                         % Color del texto del título
+    breakable,                              % Permite dividir en páginas
+    drop shadow=black!50!white,             % Sombra exterior
+    attach boxed title to top left={         % Posición del título
+        xshift=1cm,
+        yshift=-\tcboxedtitleheight/2,
+        yshifttext=-\tcboxedtitleheight/2
+    },
+    minipage boxed title=5cm,               % Ancho máximo del título
+    boxed title style={                     % Estilo personalizado del título
+        colback=white,                      % Fondo blanco
+        size=fbox,                         % Tamaño tipo marco
+        boxrule=1pt,                        % Grosor del borde
+        boxsep=2pt,                         % Espaciado interno
+        underlay={                          % Elementos gráficos bajo el título
+            \coordinate (dotA) at ($(interior.west) + (-0.5pt,0)$);
+            \coordinate (dotB) at ($(interior.east) + (0.5pt,0)$);
+            \begin{scope}
+                \clip (interior.north west) rectangle ([xshift=3ex]interior.east);
+                \filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, 
+                          rounded corners=2pt] (interior.north west) rectangle (interior.south east);
+            \end{scope}
+            \begin{scope}[gray!80!black]
+                \fill (dotA) circle (2pt);  % Punto decorativo izquierdo
+                \fill (dotB) circle (2pt);  % Punto decorativo derecho
+            \end{scope}
+        },
+    },
+    #1                                      % Personalización adicional
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONFIGURACIONES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ==============================================================================
+%% Ajustes de Espaciado y Formato de Títulos
+% ==============================================================================
+% Ajusta el espaciado antes y después de los títulos de capítulos y secciones.
+\titlespacing*{\chapter}{0cm}{-2.0cm}{0.50cm} % {izquierda}{espacio antes}{espacio después}
+\titlespacing*{\section}{0cm}{0.50cm}{0.25cm}
+
+% Configura la indentación y separación entre párrafos.
+\setlength{\parindent}{0pt}  % Sin indentación en los párrafos
+\setlength{\parskip}{1ex}    % Espacio extra entre párrafos
+
+% ==============================================================================
+%% Definición de Entorno Personalizado para Demostraciones
+% ==============================================================================
+\newtcbtheorem[]{demostracion}{Demostracion}%
+{ enhanced,
+  colback       = black!5,               % Color de fondo del recuadro
+  colbacktitle  = black!5,               % Color de fondo del título
+  coltitle      = black,                  % Color del texto del título
+  boxrule       = 0pt,                    % Ancho del borde del recuadro
+  frame hidden,                           % Oculta el marco del recuadro
+  borderline west = {0.5mm}{0.0mm}{black},% Línea decorativa en el lateral izquierdo
+  fonttitle     = \bfseries\sffamily,      % Fuente y estilo del título
+  breakable,                              % Permite que el recuadro se divida en varias páginas
+  before skip   = 3ex,                    % Espacio antes del entorno
+  after skip    = 3ex                     % Espacio después del entorno
+}{problem}
+
+% ==============================================================================
+%% Carga de Paquetes y Configuración de Matemáticas y Teoremas
+% ==============================================================================
+% Paquetes para símbolos, fuentes y entornos matemáticos
+\usepackage{amssymb, latexsym, amsmath, amsthm}
+\usepackage{amsfonts, rawfonts}   % Fuentes matemáticas adicionales
+\usepackage{thmtools}             % Herramientas para mejorar la gestión de teoremas
+\usepackage{fontawesome}           % Permite usar íconos y emojis sencillos
+
+% Redefine la numeración de listas para usar letras minúsculas.
+\renewcommand{\theenumi}{\alph{enumi})}
+
+% Comandos personalizados para mejorar la notación matemática.
+\let\emptyset\varnothing         % Utiliza el símbolo \varnothing para el conjunto vacío
+\newcommand{\lto}{\mathbin{\to}}   % Define un comando para la flecha "→"
+
+% Reestablece la indentación a 1cm y carga librerías adicionales para tcolorbox.
+\setlength{\parindent}{1cm}
+\tcbuselibrary{skins, breakable}
+
+% Definición de entornos para teoremas, corolarios, definiciones y proposiciones.
+\newtheorem{teorema}{Teorema}
+\newtheorem{corolario}{Corolario}
+\newtheorem{definición}{Definición}
+\newtheorem{proposición}{Proposición}
+
+% ==============================================================================
+%% Configuración del Estilo del Documento y Encabezados
+% ==============================================================================
+\usepackage{epsfig, graphicx} % Inclusión de imágenes y gráficos
+\usepackage[left=2cm, right=2cm, top=1.8cm, bottom=2.3cm]{geometry} % Define los márgenes del documento
+\usepackage{fancyhdr}         % Para personalizar encabezados y pies de página
+\usepackage{lastpage}         % Permite referenciar el número total de páginas
+
+% Configuración de encabezados y pies con fancyhdr.
+\pagestyle{fancy}
+\fancyhf{}  % Limpia los encabezados y pies predeterminados
+\rfoot{%
+  \includegraphics[height=1cm]{Logo_FC.png} \hfill % Inserta un logo a la derecha
+  Nombre del Estudiante | Número de cuenta | \textit{Página \thepage\ de \pageref{LastPage}}
+}
+
+% ==============================================================================
+%% Paquetes Adicionales para Matemáticas y Utilidades
+% ==============================================================================
+\usepackage{amsmath} % Reafirma la carga de amsmath
+\usepackage{amssymb, latexsym, amsmath, amsthm} % Carga de símbolos matemáticos y teoremas (reiterado para compatibilidad)
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}    % Configura el idioma del documento a español
+\usepackage{geometry}         % Ya cargado anteriormente, se reafirma su uso
+\usepackage{makecell}         % Para personalizar celdas en tablas
+\usepackage{xcolor}           % Permite el uso de colores en el texto
+\usepackage{amsfonts}
+\usepackage{mathtools}        % Extiende funcionalidades de amsmath
+\usepackage{tabularx, booktabs, ragged2e} % Herramientas para crear tablas de calidad
+\usepackage{multirow}         % Permite celdas que abarcan varias filas en tablas
+\usepackage{cancel}           % Para tachar términos en expresiones matemáticas
+\usepackage{multicol}         % Permite el uso de múltiples columnas en el documento
+
+% ==============================================================================
+%% Texto de Relleno (Dummy Text)
+% ==============================================================================
+\usepackage{lipsum}           % Genera texto aleatorio para pruebas
+
+% ==============================================================================
+%% Herramientas para Gráficos y Diagramas
+% ==============================================================================
+\usetikzlibrary{arrows, backgrounds, shapes.arrows, positioning} % Librerías de TikZ para gráficos vectoriales
+\usepackage{pgfplots, mathtools}
+\pgfplotsset{compat=newest}   % Asegura la compatibilidad con la versión más reciente de pgfplots
+
+% Redefine los operadores de parte real e imaginaria para evitar conflictos.
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+\let\Im\relax
+\DeclareMathOperator{\Im}{Im}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ENCABEZADO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+    \begin{minipage}{3cm}
+    	\begin{center}
+    		\includegraphics[height=3.4cm]{Logo_UNAM.png}
+    	\end{center}
+    \end{minipage}\hfill
+    \begin{minipage}{10cm}
+    	\begin{center}
+    	\textbf{\large Universidad Nacional Autónoma de México}\\[0.1cm]
+        \textbf{Facultad de Ciencias}\\[0.1cm]
+        \textbf{Nombre de la Materia $|$ Grupo \#\#\#\#}\\[0.1cm]
+        Tarea \# - Nombre de la Tarea\\[0.1cm]
+        Nombre del estudiante\\[0.1cm]
+        \today
+    	\end{center}
+    \end{minipage}\hfill
+    \begin{minipage}{3cm}
+    	\begin{center}
+    		\includegraphics[height=3.4cm]{Logo_FC.png}
+    	\end{center}
+    \end{minipage}
+\end{center}
+
+\rule{17cm}{0.1mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIN DE ENCABEZADO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ==============================================================================
+%% Primer bloque: Indicaciones
+% ==============================================================================
+
+\begin{intro}
+    \lipsum[2]
+\end{intro}
+
+% ==============================================================================
+%% Segundo Bloque: Demostraciones
+% ==============================================================================
+
+\begin{inciso}{Demostraciones}
+- \lipsum[4] 
+
+\begin{teorema}
+Aquí va un teorema
+\end{teorema}
+
+\begin{demostracion}{P.D. Teorema }
+- \lipsum[4] 
+\end{demostracion}
+\end{inciso}
+
+% ==============================================================================
+%% Tercer bloque: Tablas
+% ==============================================================================
+
+\begin{inciso}{Tablas}
+-    \lipsum[4]
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c*{5}{|c}}
+    \multicolumn{3}{c}{}&
+    \multicolumn{1}{c}{%
+      $\overbrace{\hphantom{(p\land q)\to p}}^{\textbf{(a)}}$%
+    }
+    &\multicolumn{1}{c}{}&
+    \multicolumn{1}{c}{%
+      $\overbrace{\hphantom{p\to (p\lor q)}}^{\textbf{(b)}}$%
+    }\\[-1ex]
+    $p$ & $q$ & $p\land q$ & $(p\land q)\to p$ & $p\lor q$ & $p\to (p\lor q)$\\
+    \hline
+    T & T & T & T & T & T\\
+    T & F & F & T & T & T\\
+    F & T & F & T & T & T\\
+    F & F & F & T & F & T
+    \end{tabular}
+    \label{tab:logica}
+    \end{table}
+
+\end{inciso}
+
+
+% ==============================================================================
+%% Cuarto bloque: Figuras en Tikz
+% ==============================================================================
+\begin{inciso}{Figuras en tikz}
+-    \lipsum[1]
+\\
+\begin{center}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel=$\Re(p_0)$,
+            ylabel=$\Im(p_0)$,
+            zlabel=$n_\text{B}(p_0)$,
+            x label style={at={(0.35, 0)}},
+            y label style={at={(0.95, 0.15)}},
+            shader=flat,
+            tickwidth=0pt
+            ]
+            
+            \def\nB{(e^(2*x) - 2*e^x*cos(deg(y)) + 1)^(-1/2)}
+            
+            \addplot3[surf, opacity=0.5, domain=1:10, y domain=-10:10]{\nB};
+            
+            \addplot3[surf, opacity=0.5, domain=-10:-2, y domain=-10:10]{\nB};
+            
+            \addplot3[surf, opacity=0.5, domain=-2:1, y domain=-10:10, restrict z to domain*=0:2]{\nB};
+            
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+\end{inciso}
+
+% ==============================================================================
+%% Quinto bloque: Observaciones
+% ==============================================================================
+
+\begin{inciso}{Observaciones}
+- \lipsum[2]
+\begin{notas}
+\lipsum[4] 
+\end{notas}   
+\end{inciso}
+
+\newpage
+
+% ==============================================================================
+%% Sexto Bloque: Código
+% ==============================================================================
+
+\begin{inciso}{Código}
+- \lipsum[4]
+\end{inciso}
+
+% Comienzo de la figura, que contiene un ejemplo de código en formato de listado
+\begin{figure}[H]
+    \begin{lstlisting}[
+        xleftmargin=0.15in,
+        linewidth=0.48\textwidth, 
+        basicstyle=\scriptsize\ttfamily
+        ] 
+__global__
+void compute(double comp, int var_1, double var_2,
+  double var_3, double var_4, double var_5, 
+  double var_6, double var_7, double var_8) {
+  if (comp == -1.3857E-36 + var_2) {
+    double tmp_1 = +1.3305E12 / var_3;
+    comp += -1.7744E-2 * tmp_1;
+    comp += cos(var_4 - +1.4014E2 * (var_5 + var_6 * var_7));
+    for (int i=0; i < var_1; ++i) {
+      comp -= sqrt(var_8 + -1.7976E3);
+    }
+  }
+  printf("%.17g\n", comp);
+}
+\end{lstlisting}
+\end{figure}
+% Fin de la figura y del listado del código
+
+% ==============================================================================
+%% Séptimo Bloque: Bibliografía
+% ==============================================================================
+
+\begin{biblio}
+\lipsum[4]
+\end{biblio}
+
+\end{document}
+
+
+    
