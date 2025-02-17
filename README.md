@@ -1,5 +1,10 @@
 # Repositorio de Plantilla LaTeX para la Facultad de Ciencias, UNAM :large_blue_circle: :yellow_circle:
 
+## Video explicativo
+
+[https://youtu.be/rRwRgqrZy5E
+](https://youtu.be/rRwRgqrZy5E?si=8hmwN26IWqD_xj3U)
+
 [![Hecho con LaTeX](https://img.shields.io/badge/Hecho%20con-LaTeX-blue?logo=latex&logoColor=white)](https://www.latex-project.org/)
 
 Este repositorio contiene una plantilla de LaTeX diseñada específicamente para la **Facultad de Ciencias de la UNAM**. La plantilla está configurada para facilitar la creación de documentos académicos, como tareas, reportes, y trabajos de investigación, con un diseño profesional y adaptado a los estándares de la facultad.
